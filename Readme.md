@@ -1,5 +1,5 @@
 # Fundamentos Core Escuela
-Proyecto creado para practicar los fundamentos de C# con el framework .Net Core.
+Proyecto creado para practicar C# con el framework .Net Core. Aplicando los aprendido en los cursos de C# con .NetCore de Platzi
 
 ---
 En este proyecto se realiza la creación de una escuela, con las siguientes entidades:
