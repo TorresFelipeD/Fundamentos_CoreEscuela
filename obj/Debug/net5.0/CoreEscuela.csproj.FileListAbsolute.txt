@@ -1,0 +1,16 @@
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.exe
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.deps.json
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.runtimeconfig.json
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.runtimeconfig.dev.json
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.dll
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\ref\CoreEscuela.dll
+C:\PROYECTOS\CSharp\CoreEscuela\bin\Debug\net5.0\CoreEscuela.pdb
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.csproj.AssemblyReference.cache
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.AssemblyInfoInputs.cache
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.AssemblyInfo.cs
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.csproj.CoreCompileInputs.cache
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.dll
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\ref\CoreEscuela.dll
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.pdb
+C:\PROYECTOS\CSharp\CoreEscuela\obj\Debug\net5.0\CoreEscuela.genruntimeconfig.cache
