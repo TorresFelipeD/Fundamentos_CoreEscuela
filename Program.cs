@@ -29,6 +29,21 @@ namespace CoreEscuela
 
             Printer.EscribirTitulo("Alumnos");
 
+            Printer.DibujarLinea(50);
+            Printer.EscribirTitulo("Pruebas de Polimorfismo");
+
+            Printer.EscribirTitulo("Alumno");
+            var alumno01 = new Alumno
+            {
+                Nombre = "Angel Di Maria"
+            };
+            WriteLine($"Alumno: {alumno01.Nombre}");
+            WriteLine($"UniqueID: {alumno01.UniqueId}");
+
+            Printer.EscribirTitulo("ObjetoBase");
+            ObjetoEscuelaBase objetoEscuelaBase = alumno01;
+            WriteLine($"Alumno: {objetoEscuelaBase.Nombre}");
+            WriteLine($"UniqueID: {objetoEscuelaBase.UniqueId}");
         }
 
         private static void ImprimirCursos(Escuela escuela)
@@ -50,7 +65,7 @@ namespace CoreEscuela
                 else
                 {
                     Printer.EscribirTitulo("NO HAY CURSOS REGISTRADOS");
-                    
+
                 }
             }
         }
