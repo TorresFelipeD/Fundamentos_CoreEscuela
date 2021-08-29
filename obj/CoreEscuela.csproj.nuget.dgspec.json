@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PROYECTOS\\CSharp\\CoreEscuela\\CoreEscuela.csproj": {}
+    "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\CoreEscuela.csproj": {}
   },
   "projects": {
-    "C:\\PROYECTOS\\CSharp\\CoreEscuela\\CoreEscuela.csproj": {
+    "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\CoreEscuela.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PROYECTOS\\CSharp\\CoreEscuela\\CoreEscuela.csproj",
+        "projectUniqueName": "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\CoreEscuela.csproj",
         "projectName": "CoreEscuela",
-        "projectPath": "C:\\PROYECTOS\\CSharp\\CoreEscuela\\CoreEscuela.csproj",
+        "projectPath": "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\CoreEscuela.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\PROYECTOS\\CSharp\\CoreEscuela\\obj\\",
+        "outputPath": "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
