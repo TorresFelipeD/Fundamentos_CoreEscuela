@@ -4,16 +4,16 @@ namespace CoreEscuela.Util
 {
     public static class Printer
     {
-        public static void DibujarLinea(int len = 100)
+        public static void DrawLine(int len = 100)
         {
             WriteLine(new string('=', len));
         }
 
-        public static void EscribirTitulo(string titulo)
+        public static void WriteTitle(string titulo)
         {
-            DibujarLinea((titulo.Length) * 2);
+            DrawLine((titulo.Length) * 2);
             WriteLine(titulo.ToUpper());
-            DibujarLinea((titulo.Length) * 2);
+            DrawLine((titulo.Length) * 2);
         }
     }
 }
