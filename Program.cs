@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreEscuela.App;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
+using Fundamentos_CoreEscuela.Entidades;
 using static System.Console;
 
 namespace CoreEscuela
@@ -15,6 +17,8 @@ namespace CoreEscuela
 
             EscuelaEngine engine = new EscuelaEngine();
             engine.Inicializar();
+
+            engine.Escuela.ClearPlace();
 
             Printer.WriteTitle("ESCUELA");
             WriteLine(engine.Escuela.ToString());
@@ -63,7 +67,37 @@ namespace CoreEscuela
             }
             //alumno01 = (Alumno)(ObjetoEscuelaBase)evaluation1;
             Alumno objetoEscuelaBaseAlumno2 = objetoEscuelaBase as Alumno;
+
+            var listObjetoEscuela = engine.GetObjetoEscuelaBase();
+
+            var listaILugar = from ob in listObjetoEscuela
+                              where ob is IPlace
+                              select (IPlace)ob;
+
+            Printer.WriteTitle("Metodo Escuela Base");
+            var listObjetoEscuelaV2 = engine.GetObjetoEscuelaBase(
+                out int countEvaluations,
+                out int countAlumnos,
+                out int countSignatures,
+                out int countCourses,
+                true, true, true, true);
+
             
+            /*
+            Al declararse un parametro de salida se puede realizar la creación  de una variable tipo
+            "dummy" con el fin de se reciclada.
+            e.g. 
+                var listObjetoEscuelaV2 = engine.GetObjetoEscuelaBase(
+                    out int countEvaluations,
+                    out int dummy, //Creación de variable
+                    out dummy, //Reutilización de variable no requerida
+                    out dummy, //Reutilización de variable no requerida
+                    true,true,true,true);
+            */
+
+            var listObjetoEscuelaV3 = engine.GetObjetoEscuelaBase(hasEvaluations: true);
+
+            Printer.DrawLine();
         }
 
         private static void ImprimirCursos(Escuela escuela)

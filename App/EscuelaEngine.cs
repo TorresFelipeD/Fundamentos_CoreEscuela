@@ -41,7 +41,8 @@ namespace CoreEscuela.App
 
                         for (int i = 0; i < 5; i++)
                         {
-                            var ev = new Evaluacion(){
+                            var ev = new Evaluacion()
+                            {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre}_Ev#{i + 1}",
                                 Nota = (float)(5 * rnd.NextDouble()),
@@ -53,6 +54,8 @@ namespace CoreEscuela.App
                 }
             }
         }
+
+
 
         private void CargarAsignaturas()
         {
@@ -115,6 +118,81 @@ namespace CoreEscuela.App
                 int cantRandom = rdm.Next(10, 30);
                 curso.Alumnos = GenerarAlumnos(cantRandom);
             }
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase(
+                    bool hasEvaluations = true,
+                    bool hasAlumnos = true,
+                    bool hasSignatures = true,
+                    bool hasCourses = true
+                    )
+        { 
+            return GetObjetoEscuelaBase(out int blank, out blank, out blank, out blank,
+            hasEvaluations,hasAlumnos,hasSignatures,hasCourses);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase(
+            out int countEvaluations,
+            out int countAlumnos,
+            out int countSignatures,
+            out int countCourses,
+            bool hasEvaluations = true,
+            bool hasAlumnos = true,
+            bool hasSignatures = true,
+            bool hasCourses = true
+            )
+        {
+            var listOb = new List<ObjetoEscuelaBase>();
+            listOb.Add(Escuela);
+
+            countCourses = countSignatures = countAlumnos = countEvaluations = 0;
+
+            if (hasCourses)
+            {
+                listOb.AddRange(Escuela.Cursos);
+                countCourses += Escuela.Cursos.Count();
+
+                foreach (var curso in Escuela.Cursos)
+                {
+                    countSignatures += curso.Asignaturas.Count;
+                    countAlumnos += curso.Alumnos.Count;
+
+                    if (hasSignatures)
+                        listOb.AddRange(curso.Asignaturas);
+
+                    if (hasAlumnos)
+                        listOb.AddRange(curso.Alumnos);
+
+                    if (hasEvaluations)
+                    {
+                        foreach (var alumno in curso.Alumnos)
+                        {
+                            listOb.AddRange(alumno.Evaluaciones);
+                            countEvaluations += alumno.Evaluaciones.Count();
+                        }
+
+                    }
+                }
+            }
+            return listOb;
+        }
+        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase()
+        {
+            var listOb = new List<ObjetoEscuelaBase>();
+            listOb.Add(Escuela);
+            listOb.AddRange(Escuela.Cursos);
+
+            foreach (var curso in Escuela.Cursos)
+            {
+                listOb.AddRange(curso.Asignaturas);
+                listOb.AddRange(curso.Alumnos);
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listOb.AddRange(alumno.Evaluaciones);
+                }
+            }
+            return listOb;
         }
     }
 }
