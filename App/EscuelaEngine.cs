@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
+using Fundamentos_CoreEscuela.Entidades;
 using static System.Console;
 
 namespace CoreEscuela.App
@@ -118,6 +119,32 @@ namespace CoreEscuela.App
                 int cantRandom = rdm.Next(10, 30);
                 curso.Alumnos = GenerarAlumnos(cantRandom);
             }
+        }
+
+        public Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos(){
+            var dicc = new Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>>();
+            dicc.Add(LlavesDiccionarioEnum.Escuela,new[] {Escuela});
+            dicc.Add(LlavesDiccionarioEnum.Cursos, Escuela.Cursos);
+
+            var lstAlumnos = new List<Alumno>();
+            var lstAsignaturas = new List<Asignatura>();
+            var listEvaluacion = new List<Evaluacion>();
+
+            Escuela.Cursos.ForEach(curso => 
+            {
+                lstAsignaturas.AddRange(curso.Asignaturas);
+                lstAlumnos.AddRange(curso.Alumnos);
+                lstAlumnos.ForEach(alumno =>
+                {
+                    listEvaluacion.AddRange(alumno.Evaluaciones);
+                });
+            });
+           
+            dicc.Add(LlavesDiccionarioEnum.Asignaturas,lstAsignaturas);
+            dicc.Add(LlavesDiccionarioEnum.Alumnos,lstAlumnos);
+            dicc.Add(LlavesDiccionarioEnum.Evaluaciones,listEvaluacion);
+
+            return dicc;
         }
 
         public List<ObjetoEscuelaBase> GetObjetoEscuelaBase(

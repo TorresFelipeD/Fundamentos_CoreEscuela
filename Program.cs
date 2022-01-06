@@ -98,6 +98,10 @@ namespace CoreEscuela
             var listObjetoEscuelaV3 = engine.GetObjetoEscuelaBase(hasEvaluations: true);
 
             Printer.DrawLine();
+
+            Printer.WriteTitle("GetObjetosEscuela");
+            var getDiccObj = engine.GetDiccionarioObjetos();
+            Printer.DrawLine();
         }
 
         private static void ImprimirCursos(Escuela escuela)
