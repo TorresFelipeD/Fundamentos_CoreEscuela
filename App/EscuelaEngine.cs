@@ -33,13 +33,13 @@ namespace CoreEscuela.App
 
         private void CargarEvaluaciones()
         {
+            var rnd = new Random(System.Environment.TickCount);
             foreach (var curso in Escuela.Cursos)
             {
                 foreach (var asignatura in curso.Asignaturas)
                 {
                     foreach (var alumno in curso.Alumnos)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
 
                         for (int i = 0; i < 5; i++)
                         {
@@ -47,7 +47,7 @@ namespace CoreEscuela.App
                             {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre}_Ev#{i + 1}",
-                                Nota = (float)(5 * rnd.NextDouble()),
+                                Nota = MathF.Round(5 * (float)rnd.NextDouble(), 2),
                                 Alumno = alumno
                             };
                             alumno.Evaluaciones.Add(ev);
@@ -122,28 +122,81 @@ namespace CoreEscuela.App
             }
         }
 
-        public void ImprimirDiccionarioObjetos(Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>> dic){
+        public void ImprimirDiccionarioObjetos(Dictionary<LlavesDiccionarioEnum, IEnumerable<ObjetoEscuelaBase>> dic, bool HasEvaluation = false, bool WithSwitch = true)
+        {
             foreach (var obj in dic)
             {
-                Printer.WriteTitle(obj.Key.ToString());
+                if (HasEvaluation)
+                {
+                    Printer.WriteTitle(obj.Key.ToString());
+                }
+                else
+                {
+                    if (obj.Key.ToString() != LlavesDiccionarioEnum.Evaluaciones.ToString())
+                    {
+                        Printer.WriteTitle(obj.Key.ToString());
+                    }
+                }
 
                 foreach (var val in obj.Value)
                 {
-                    Console.WriteLine(val.ToString());
+                    if (WithSwitch)
+                    {
+                        switch (obj.Key)
+                        {
+                            case LlavesDiccionarioEnum.Escuela:
+                                Console.WriteLine($"{obj.Key}: {val.ToString()}");
+                                break;
+                            case LlavesDiccionarioEnum.Alumnos:
+                                Console.WriteLine($"{obj.Key}: {val.ToString()}");
+                                break;
+                            case LlavesDiccionarioEnum.Cursos:
+                                var curtmp = val as Curso;
+                                if(curtmp != null)
+                                {
+                                    int count = curtmp.Alumnos.Count;
+                                    Console.WriteLine("Curso: " + val.Nombre + " Cantidad Alumnos: " + count);
+                                }
+                                break;
+                            case LlavesDiccionarioEnum.Evaluaciones:
+                                if (HasEvaluation)
+                                    Console.WriteLine($"{obj.Key}: {val.ToString()}");
+                                break;
+                            default:
+                                Console.WriteLine($"{obj.Key}: {val.ToString()}");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        if (val is Evaluacion)
+                        {
+                            if (HasEvaluation)
+                            {
+                                Console.WriteLine($"{val.GetType().Name}: {val.ToString()}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{val.GetType().Name}: {val.ToString()}");
+                        }
+                    }
+
                 }
             }
         }
 
-        public Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos(){
-            var dicc = new Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>>();
-            dicc.Add(LlavesDiccionarioEnum.Escuela,new[] {Escuela});
+        public Dictionary<LlavesDiccionarioEnum, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        {
+            var dicc = new Dictionary<LlavesDiccionarioEnum, IEnumerable<ObjetoEscuelaBase>>();
+            dicc.Add(LlavesDiccionarioEnum.Escuela, new[] { Escuela });
             dicc.Add(LlavesDiccionarioEnum.Cursos, Escuela.Cursos);
 
             var lstAlumnos = new List<Alumno>();
             var lstAsignaturas = new List<Asignatura>();
             var listEvaluacion = new List<Evaluacion>();
 
-            Escuela.Cursos.ForEach(curso => 
+            Escuela.Cursos.ForEach(curso =>
             {
                 lstAsignaturas.AddRange(curso.Asignaturas);
                 lstAlumnos.AddRange(curso.Alumnos);
@@ -152,26 +205,26 @@ namespace CoreEscuela.App
                     listEvaluacion.AddRange(alumno.Evaluaciones);
                 });
             });
-           
-            dicc.Add(LlavesDiccionarioEnum.Asignaturas,lstAsignaturas);
-            dicc.Add(LlavesDiccionarioEnum.Alumnos,lstAlumnos);
-            dicc.Add(LlavesDiccionarioEnum.Evaluaciones,listEvaluacion);
+
+            dicc.Add(LlavesDiccionarioEnum.Asignaturas, lstAsignaturas);
+            dicc.Add(LlavesDiccionarioEnum.Alumnos, lstAlumnos);
+            dicc.Add(LlavesDiccionarioEnum.Evaluaciones, listEvaluacion);
 
             return dicc;
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuelaBase(
                     bool hasEvaluations = true,
                     bool hasAlumnos = true,
                     bool hasSignatures = true,
                     bool hasCourses = true
                     )
-        { 
+        {
             return GetObjetoEscuelaBase(out int blank, out blank, out blank, out blank,
-            hasEvaluations,hasAlumnos,hasSignatures,hasCourses);
+            hasEvaluations, hasAlumnos, hasSignatures, hasCourses);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuelaBase(
             out int countEvaluations,
             out int countAlumnos,
             out int countSignatures,
@@ -216,7 +269,7 @@ namespace CoreEscuela.App
             }
             return listOb;
         }
-        public List<ObjetoEscuelaBase> GetObjetoEscuelaBase()
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuelaBase()
         {
             var listOb = new List<ObjetoEscuelaBase>();
             listOb.Add(Escuela);

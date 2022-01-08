@@ -13,6 +13,10 @@ namespace CoreEscuela
     {
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += AccionEvento;
+            AppDomain.CurrentDomain.ProcessExit += (o,s) => { Printer.WriteTitle("Terminación Adicional");};
+            AppDomain.CurrentDomain.ProcessExit -= AccionEvento;
+
             Printer.DrawLine();
 
             EscuelaEngine engine = new EscuelaEngine();
@@ -107,6 +111,12 @@ namespace CoreEscuela
             engine.ImprimirDiccionarioObjetos(getDiccObj);
             Printer.WriteTitle("Fin de la Impresión de Objetos del Diccionario");
             Printer.DrawLine();
+        }
+
+        private static void AccionEvento(object sender, EventArgs e)
+        {
+            Printer.WriteTitle("Terminando Ejecución");
+            Printer.WriteTitle("Ejecución Terminada");
         }
 
         private static void ImprimirCursos(Escuela escuela)
