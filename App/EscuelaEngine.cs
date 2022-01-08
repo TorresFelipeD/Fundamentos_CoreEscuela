@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
 using Fundamentos_CoreEscuela.Entidades;
+using CoreEscuela.Util;
 using static System.Console;
 
 namespace CoreEscuela.App
@@ -118,6 +119,18 @@ namespace CoreEscuela.App
             {
                 int cantRandom = rdm.Next(10, 30);
                 curso.Alumnos = GenerarAlumnos(cantRandom);
+            }
+        }
+
+        public void ImprimirDiccionarioObjetos(Dictionary<LlavesDiccionarioEnum,IEnumerable<ObjetoEscuelaBase>> dic){
+            foreach (var obj in dic)
+            {
+                Printer.WriteTitle(obj.Key.ToString());
+
+                foreach (var val in obj.Value)
+                {
+                    Console.WriteLine(val.ToString());
+                }
             }
         }
 

@@ -102,6 +102,11 @@ namespace CoreEscuela
             Printer.WriteTitle("GetObjetosEscuela");
             var getDiccObj = engine.GetDiccionarioObjetos();
             Printer.DrawLine();
+
+            Printer.WriteTitle("ImprimirDiccionarioObjetos");
+            engine.ImprimirDiccionarioObjetos(getDiccObj);
+            Printer.WriteTitle("Fin de la Impresión de Objetos del Diccionario");
+            Printer.DrawLine();
         }
 
         private static void ImprimirCursos(Escuela escuela)
