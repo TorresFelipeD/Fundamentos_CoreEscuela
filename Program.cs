@@ -16,6 +16,7 @@ namespace CoreEscuela
             AppDomain.CurrentDomain.ProcessExit += AccionEvento;
             AppDomain.CurrentDomain.ProcessExit += (o,s) => { Printer.WriteTitle("Terminación Adicional");};
             AppDomain.CurrentDomain.ProcessExit -= AccionEvento;
+            AppDomain.CurrentDomain.ProcessExit += AccionEvento;
 
             Printer.DrawLine();
 
