@@ -114,7 +114,8 @@ namespace CoreEscuela
             Printer.DrawLine();
 
             //Se agrega la clase de reporteador
-            var reporteador = new Reporteador(null);
+            var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
+            reporteador.GetListaEscuela();
         }
 
         private static void AccionEvento(object sender, EventArgs e)

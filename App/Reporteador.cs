@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using CoreEscuela.Entidades;
 using Fundamentos_CoreEscuela.Entidades;
@@ -15,11 +16,16 @@ namespace CoreEscuela.App
             _diccionario = dicObjEscuela;
         }
 
-        public IEnumerable<Evaluacion> GetListaEvaluaciones(){
-            var dicc = new List<Evaluacion>();
-            //dicc.AddRange(_diccionario[LlavesDiccionarioEnum.Evaluaciones]);
-
-            return dicc;
+        public IEnumerable<Escuela> GetListaEscuela(){
+            IEnumerable<Escuela> listEscuela = null;
+            //var listEscuela = _diccionario.GetValueOrDefault(LlavesDiccionarioEnum.Escuela);
+            
+            if (_diccionario.TryGetValue(LlavesDiccionarioEnum.Escuela, out var lista))
+            {
+                listEscuela = lista.Cast<Escuela>();
+            }
+            
+            return listEscuela;
         }
     }
 }
