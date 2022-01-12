@@ -112,6 +112,9 @@ namespace CoreEscuela
             engine.ImprimirDiccionarioObjetos(getDiccObj);
             Printer.WriteTitle("Fin de la Impresión de Objetos del Diccionario");
             Printer.DrawLine();
+
+            //Se agrega la clase de reporteador
+            var reporteador = new Reporteador(null);
         }
 
         private static void AccionEvento(object sender, EventArgs e)
