@@ -39,9 +39,12 @@ namespace CoreEscuela.App
             
             return listEscuela;
         }
-
         public IEnumerable<string> GetListaAsignatura(){
-            var listEvaluaciones = GetListaEvaluacion();
+            return GetListaAsignatura(out IEnumerable<Evaluacion> listEvaluaciones);
+        }
+
+        public IEnumerable<string> GetListaAsignatura(out IEnumerable<Evaluacion> listEvaluaciones){
+            listEvaluaciones = GetListaEvaluacion();
 
             // Investigar Compare o Comparison
             var listAsignatura = (from data in listEvaluaciones
@@ -54,8 +57,7 @@ namespace CoreEscuela.App
         public Dictionary<string,IEnumerable<Evaluacion>> GetListEvaluacionAsig(){
             var dicEvalAsig = new Dictionary<string,IEnumerable<Evaluacion>>();
             
-            var listEvaluaciones = GetListaEvaluacion();
-            var listAsignatura = GetListaAsignatura();
+            var listAsignatura = GetListaAsignatura(out var listEvaluaciones);
 
             foreach (var asignatura in listAsignatura)
             {
