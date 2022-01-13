@@ -115,7 +115,11 @@ namespace CoreEscuela
 
             //Se agrega la clase de reporteador
             var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
-            reporteador.GetListaEscuela();
+            var listReporte1 = reporteador.GetListaEscuela();
+            var listReporte2 = reporteador.GetListaEvaluacion();
+            var listReporte3 = reporteador.GetListaAsignatura();
+            var listReporte4 = reporteador.GetListEvaluacionAsig();
+
         }
 
         private static void AccionEvento(object sender, EventArgs e)

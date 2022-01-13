@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "4f+YLoqd3jLiD/3E2ITm6s/m+oOBDz5YRalTvPdcPSN5Sd7sfIULPZ4BerkLvfkBIbS/PsQlLGbRIK9lq2UNUA==",
+  "dgSpecHash": "cojScrNggEAST73KNDWT+bGwGSGEgi21lMXUvZvACKixEl9mwBamjt8/kh9RvctS3JOriX/rYTh9FSzK25IECQ==",
   "success": true,
   "projectFilePath": "C:\\PROYECTOS\\Fundamentos_CoreEscuela\\CoreEscuela.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
   "logs": []
 }
