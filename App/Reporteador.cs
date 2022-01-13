@@ -71,5 +71,20 @@ namespace CoreEscuela.App
 
             return dicEvalAsig;
         }
+
+        public Dictionary<string, IEnumerable<dynamic>> GetPromedAlumnAsig(){
+            var report =  new Dictionary<string, IEnumerable<dynamic>>();
+            var dicEvalAsig = GetListEvaluacionAsig();
+            foreach (var asigEval in dicEvalAsig)
+            {
+                var AlumNota = from ev in asigEval.Value
+                            select new {
+                                ev.Alumno.UniqueId,
+                                ev.Nota
+                            };
+            }
+
+            return report;
+        }
     }
 }
