@@ -77,10 +77,18 @@ namespace CoreEscuela.App
             var dicEvalAsig = GetListEvaluacionAsig();
             foreach (var asigEval in dicEvalAsig)
             {
-                var AlumNota = from ev in asigEval.Value
+                var AlumNota = 
+                            from ev in asigEval.Value
+                            group ev by ev.Alumno.UniqueId
+                            into grupoEvalAlumno
                             select new {
-                                ev.Alumno.UniqueId,
-                                ev.Nota
+                                // ev.Alumno.UniqueId,
+                                // NombreAlumno = ev.Alumno.Nombre, 
+                                // NombreEval = ev.Nombre,
+                                // ev.Nota
+
+                                AlumnoId = grupoEvalAlumno.Key,
+                                Promedio = grupoEvalAlumno.Average(eval => eval.Nota)
                             };
             }
 
