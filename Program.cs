@@ -119,7 +119,24 @@ namespace CoreEscuela
             var listReporte2 = reporteador.GetListaEvaluacion();
             var listReporte3 = reporteador.GetListaAsignatura();
             var listReporte4 = reporteador.GetListEvaluacionAsig();
+            var listReporte5 = reporteador.GetPromedAlumnAsig();
 
+            Printer.WriteTitle("Promedio Alumnos");
+
+            foreach (var promedioAlumno in listReporte5)
+            {
+                Printer.DrawLine();
+                WriteLine(promedioAlumno.Key.ToUpper());
+                foreach (var promedioAlumnoValue in promedioAlumno.Value)
+                {
+                    Printer.DrawLine();
+                    WriteLine($"AlumnoId:{promedioAlumnoValue.AlumnoId}");
+                    WriteLine($"AlumnoNombre:{promedioAlumnoValue.AlumnoNombre}");
+                    WriteLine($"Promedio:{promedioAlumnoValue.Promedio:N2}");
+                    Printer.DrawLine();
+                }
+                Printer.DrawLine();
+            }
         }
 
         private static void AccionEvento(object sender, EventArgs e)

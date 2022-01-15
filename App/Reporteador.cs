@@ -79,7 +79,10 @@ namespace CoreEscuela.App
             {
                 var AlumNota = 
                             from ev in asigEval.Value
-                            group ev by ev.Alumno.UniqueId
+                            group ev by new {
+                                ev.Alumno.UniqueId,
+                                ev.Alumno.Nombre
+                            } 
                             into grupoEvalAlumno
                             select new {
                                 // ev.Alumno.UniqueId,
@@ -87,9 +90,12 @@ namespace CoreEscuela.App
                                 // NombreEval = ev.Nombre,
                                 // ev.Nota
 
-                                AlumnoId = grupoEvalAlumno.Key,
+                                AlumnoId = grupoEvalAlumno.Key.UniqueId,
+                                AlumnoNombre = grupoEvalAlumno.Key.Nombre,
                                 Promedio = grupoEvalAlumno.Average(eval => eval.Nota)
                             };
+
+                report.Add(asigEval.Key,AlumNota);
             }
 
             return report;
