@@ -72,8 +72,8 @@ namespace CoreEscuela.App
             return dicEvalAsig;
         }
 
-        public Dictionary<string, IEnumerable<dynamic>> GetPromedAlumnAsig(){
-            var report =  new Dictionary<string, IEnumerable<dynamic>>();
+        public Dictionary<string, IEnumerable<ReporteAlumnoPromedio>> GetPromedAlumnAsig(){
+            var report =  new Dictionary<string, IEnumerable<ReporteAlumnoPromedio>>();
             var dicEvalAsig = GetListEvaluacionAsig();
             foreach (var asigEval in dicEvalAsig)
             {
@@ -84,7 +84,7 @@ namespace CoreEscuela.App
                                 ev.Alumno.Nombre
                             } 
                             into grupoEvalAlumno
-                            select new {
+                            select new ReporteAlumnoPromedio {
                                 // ev.Alumno.UniqueId,
                                 // NombreAlumno = ev.Alumno.Nombre, 
                                 // NombreEval = ev.Nombre,
@@ -96,6 +96,31 @@ namespace CoreEscuela.App
                             };
 
                 report.Add(asigEval.Key,AlumNota);
+            }
+
+            return report;
+        }
+
+        public Dictionary<string, IEnumerable<ReporteAlumnoPromedio>> GetPromedAlumnAsigMejores(int cantidad){
+            var report =  new Dictionary<string, IEnumerable<ReporteAlumnoPromedio>>();
+            var reportPromEval = GetPromedAlumnAsig();
+
+            foreach (var promEvalKey in reportPromEval)
+            {
+                var mejorProm = (
+                        from i in promEvalKey.Value
+                        orderby i.Promedio descending
+                        select new ReporteAlumnoPromedio {
+                            AlumnoId = i.AlumnoId,
+                            AlumnoNombre = i.AlumnoNombre,
+                            Promedio = i.Promedio
+                        }
+                ).Take(cantidad);
+
+                if (!report.ContainsKey(promEvalKey.Key))
+                {
+                    report.Add(promEvalKey.Key,mejorProm);
+                }
             }
 
             return report;

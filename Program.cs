@@ -14,7 +14,7 @@ namespace CoreEscuela
         static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += AccionEvento;
-            AppDomain.CurrentDomain.ProcessExit += (o,s) => { Printer.WriteTitle("Terminación Adicional");};
+            AppDomain.CurrentDomain.ProcessExit += (o, s) => { Printer.WriteTitle("Terminación Adicional"); };
             AppDomain.CurrentDomain.ProcessExit -= AccionEvento;
             AppDomain.CurrentDomain.ProcessExit += AccionEvento;
 
@@ -87,7 +87,7 @@ namespace CoreEscuela
                 out int countCourses,
                 true, true, true, true);
 
-            
+
             /*
             Al declararse un parametro de salida se puede realizar la creación  de una variable tipo
             "dummy" con el fin de se reciclada.
@@ -121,22 +121,47 @@ namespace CoreEscuela
             var listReporte4 = reporteador.GetListEvaluacionAsig();
             var listReporte5 = reporteador.GetPromedAlumnAsig();
 
-            Printer.WriteTitle("Promedio Alumnos");
-
-            foreach (var promedioAlumno in listReporte5)
+            #region Imprimir Promedio Alumnos
+            bool printPromedioAlumnos = false;
+            if (printPromedioAlumnos)
             {
-                Printer.DrawLine();
-                WriteLine(promedioAlumno.Key.ToUpper());
-                foreach (var promedioAlumnoValue in promedioAlumno.Value)
+                Printer.WriteTitle("Promedio Alumnos");
+
+                foreach (var promedioAlumno in listReporte5)
                 {
                     Printer.DrawLine();
-                    WriteLine($"AlumnoId:{promedioAlumnoValue.AlumnoId}");
-                    WriteLine($"AlumnoNombre:{promedioAlumnoValue.AlumnoNombre}");
-                    WriteLine($"Promedio:{promedioAlumnoValue.Promedio:N2}");
+                    WriteLine(promedioAlumno.Key.ToUpper());
+                    foreach (var promedioAlumnoValue in promedioAlumno.Value)
+                    {
+                        Printer.DrawLine();
+                        WriteLine($"AlumnoId:{promedioAlumnoValue.AlumnoId}");
+                        WriteLine($"AlumnoNombre:{promedioAlumnoValue.AlumnoNombre}");
+                        WriteLine($"Promedio:{promedioAlumnoValue.Promedio:N2}");
+                        Printer.DrawLine();
+                    }
                     Printer.DrawLine();
                 }
-                Printer.DrawLine();
             }
+            #endregion
+
+            Printer.WriteTitle("Mejores Promedio Alumnos");
+            Printer.DrawLine();
+            var mejoresPromedios = reporteador.GetPromedAlumnAsigMejores(2);
+            foreach (var promMej in mejoresPromedios)
+            {
+                Printer.WriteTitle(promMej.Key);
+                foreach (var promMejValue in promMej.Value)
+                {
+                    Printer.DrawLine();
+                    WriteLine(@$"
+                    AlumnoId:{promMejValue.AlumnoId},
+                    AlumnoNombre:{promMejValue.AlumnoNombre},
+                    Promedio:{promMejValue.Promedio:N2}
+                    ");
+                    Printer.DrawLine();
+                }
+            }
+            Printer.DrawLine();
         }
 
         private static void AccionEvento(object sender, EventArgs e)
