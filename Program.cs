@@ -14,9 +14,10 @@ namespace CoreEscuela
         static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += AccionEvento;
-            AppDomain.CurrentDomain.ProcessExit += (o, s) => { Printer.WriteTitle("Terminación Adicional"); };
+            AppDomain.CurrentDomain.ProcessExit -= (o, s) => { Printer.WriteTitle("Terminación Adicional"); };
             AppDomain.CurrentDomain.ProcessExit -= AccionEvento;
             AppDomain.CurrentDomain.ProcessExit += AccionEvento;
+            AppDomain.CurrentDomain.ProcessExit -= AccionEvento;
 
             Printer.DrawLine();
 
@@ -162,6 +163,67 @@ namespace CoreEscuela
                 }
             }
             Printer.DrawLine();
+            #region UI Consola
+            bool uiConsola = true;
+            if (uiConsola)
+            {
+                Clear();
+                Printer.WriteTitle("Captura de una Nueva Evaluacion de Consola");
+                //Printer.Beep(750, 1500, 2);
+                var newEvalConsole = new Evaluacion();
+                string nombreEvaluacion, notaEvaluacionStr;
+                float notaEvaluacion;
+
+                WriteLine("Ingrese el nombre de la evaluación");
+                Printer.PresioneEnter();
+                nombreEvaluacion = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nombreEvaluacion))
+                {
+                    Printer.WriteTitle("El valor del nombre no puede ser vacio");
+                    WriteLine("Saliendo del Programa");
+                }
+                else
+                {
+                    newEvalConsole.Nombre = nombreEvaluacion.ToLower();
+                    WriteLine("El nombre de la evaluación ha sido ingresado correctamente");
+                }
+
+                WriteLine("Ingrese la nota de la evaluación");
+                Printer.PresioneEnter();
+                notaEvaluacionStr = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(notaEvaluacionStr))
+                {
+                    Printer.WriteTitle("El valor de la nota no puede estar vacia");
+                    WriteLine("Saliendo del Programa");
+                }
+                else
+                {
+                    try
+                    {
+                        newEvalConsole.Nota = float.Parse(notaEvaluacionStr);
+                        if (newEvalConsole.Nota < 0 || newEvalConsole.Nota > 5)
+                        {
+                            throw new ArgumentOutOfRangeException("El valor debe estar entre 0 y 5");
+                        }
+                        WriteLine("La nota de la evaluación ha sido ingresada correctamente");
+                    }
+                    catch (ArgumentOutOfRangeException argEx)
+                    {
+                        Printer.WriteTitle(argEx.Message);
+                        WriteLine("Saliendo del Programa");
+                    }
+                    catch
+                    {
+                        Printer.WriteTitle("Se ha detectado un valor no númerico");
+                        WriteLine("Saliendo del Programa");
+                    }
+
+                }
+            }
+            #endregion
+
+
+
         }
 
         private static void AccionEvento(object sender, EventArgs e)
