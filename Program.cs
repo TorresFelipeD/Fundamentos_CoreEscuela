@@ -172,7 +172,6 @@ namespace CoreEscuela
                 //Printer.Beep(750, 1500, 2);
                 var newEvalConsole = new Evaluacion();
                 string nombreEvaluacion, notaEvaluacionStr;
-                float notaEvaluacion;
 
                 WriteLine("Ingrese el nombre de la evaluación");
                 Printer.PresioneEnter();
@@ -217,7 +216,10 @@ namespace CoreEscuela
                         Printer.WriteTitle("Se ha detectado un valor no númerico");
                         WriteLine("Saliendo del Programa");
                     }
-
+                    finally{
+                        Printer.WriteTitle("Fatality");
+                        Printer.Beep(1200,1000,2);
+                    }
                 }
             }
             #endregion
